@@ -127,6 +127,213 @@ To generate random numbers, we can use the Python random module. This module is 
 
 ![image](https://user-images.githubusercontent.com/57301554/122156540-ca226000-ce2e-11eb-83c5-30850ad1c5c6.png)
 
+## Deliverable 1: Retrieve Weather Data
+Generate a set of 2,000 random latitudes and longitudes, retrieve the nearest city, and perform an API call with the OpenWeatherMap. In addition to the city weather data you gathered in this module, use your API skills to retrieve the current weather description for each city. Then, create a new DataFrame containing the updated weather data.
+
+### Deliverable Requirements:
+
+Retrieve all of the following information from the API call:
+
+- Latitude and longitude
+- Maximum temperature
+- Percent humidity
+- Percent cloudiness
+- Wind speed
+- Weather description (for example, clouds, fog, light rain, clear sky)
+Add the weather data to a new DataFrame
+
+Export the DataFrame as WeatherPy_Database.csv into the Weather_Database folder
+
+Results with detail analysis:
+
+Retrieve all of the following information from the API call.
+
+- Latitude and longitude.
+- Maximum temperature.
+- Percent humidity.
+- Percent cloudiness.
+- Wind speed.
+- Weather description (for example, clouds, fog, light rain, clear sky).
+
+# Create an empty list to hold the weather data.
+city_data = []
+# Print the beginning of the logging.
+print("Beginning Data Retrieval     ")
+print("-----------------------------")
+
+# Create counters.
+record_count = 1
+set_count = 1
+
+# Loop through all the cities in the list.
+for i, city in enumerate(cities):
+
+    # Group cities in sets of 50 for logging purposes.
+    if (i % 50 == 0 and i >= 50):
+        set_count += 1
+        record_count = 1
+
+    # Create endpoint URL with each city.
+    city_url = url + "&q=" + city.replace(" ","+")
+
+    
+    # Log the URL, record, and set numbers and the city.
+    print(f"Processing Record {record_count} of Set {set_count} | {city}")
+    
+    # Add 1 to the record count.
+    record_count += 1
+
+    # Run an API request for each of the cities.
+    try:
+    
+        # Parse the JSON and retrieve data.
+        city_weather = requests.get(city_url).json()
+        
+        # Parse out the needed data.
+        city_lat = city_weather["coord"]["lat"]
+        city_lng = city_weather["coord"]["lon"]
+        city_max_temp = city_weather["main"]["temp_max"]
+        city_humidity = city_weather["main"]["humidity"]
+        city_clouds = city_weather["clouds"]["all"]
+        city_wind = city_weather["wind"]["speed"]
+        city_country = city_weather["sys"]["country"]
+        city_description = city_weather["weather"][0]["description"]
+        
+        # Convert the date to ISO standard.
+        city_date = datetime.utcfromtimestamp(city_weather["dt"]).strftime('%Y-%m-%d %H:%M:%S')
+        
+        # Append the city information into city_data list.
+        city_data.append({"City": city.title(),
+                          "Lat": city_lat,
+                          "Lng": city_lng,
+                          "Max Temp": city_max_temp,
+                          "Humidity": city_humidity,
+                          "Cloudiness": city_clouds,
+                          "Wind Speed": city_wind,
+                          "Country": city_country,
+                          "Current Description": city_description,
+                          "Date": city_date})
+
+    # If an error is experienced, skip the city.
+    except:
+        print("City not found. Skipping...")
+        pass
+
+
+# Indicate that Data Loading is complete.
+print("-----------------------------")
+print("Data Retrieval Complete      ")
+print("-----------------------------") 
+
+## 2. Add the weather data to a new DataFrame.
+
+# New DF
+city_data_df = pd.DataFrame(city_data)
+city_data_df.head(10)
+
+# Reorder the column order
+new_column_order = ["City", "Country", "Lat","Lng", "Max Temp", "Humidity", "Cloudiness", "Wind Speed", "Current Description", "Date"]
+
+city_data_df = city_data_df[new_column_order]
+
+city_data_df
+
+![image](https://user-images.githubusercontent.com/57301554/122157084-da870a80-ce2f-11eb-9b84-061afbedd621.png)
+
+![image](https://user-images.githubusercontent.com/57301554/122157123-ed014400-ce2f-11eb-92e1-4b619dda3bdc.png)
+
+## 3. Export the DataFrame as WeatherPy_Database.csv into the Weather_Database folder
+
+# Create the output file (CSV).
+output_data_file = "Weather_Database/WeatherPy_Database.csv"
+# Export the City_Data into a CSV.
+city_data_df.to_csv(output_data_file, index_label="City_ID")
+
+##Deliverable 2: 
+###Create a Customer Travel Destinations Map.
+Use input statements to retrieve customer weather preferences, then use those preferences to identify potential travel destinations and nearby hotels. Then, show those destinations on a marker layer map with pop-up markers.
+
+###Deliverable Requirements:
+
+-Input statements are written to prompt the customer for their minimum and maximum temperature preferences.
+-A new DataFrame is created based on the minimum and maximum temperature, and empty rows are dropped.
+-The hotel name is retrieved and added to the DataFrame, and the rows that don’t have a hotel name are dropped.
+-The DataFrame is exported as a CSV file into the Vacation_Search folder and is saved as WeatherPy_vacation.csv.
+-A marker layer map with pop-up markers for the cities in the vacation DataFrame is created, and it is uploaded as a PNG. Each marker has the following information:
+Hotel name
+  -City
+  -Country
+  -Current weather description with the maximum temperature
+-The marker layer map is saved and uploaded to the Vacation_Search folder as WeatherPy_vacation_map.png.
+
+## Results with detail analysis:
+
+###1. Input statements are written to prompt the customer for their minimum and maximum temperature preferences.
+
+![image](https://user-images.githubusercontent.com/57301554/122157428-73b62100-ce30-11eb-8b1a-91b18437250c.png)
+
+## 2. A new DataFrame is created based on the minimum and maximum temperature, and empty rows are dropped."
+
+![image](https://user-images.githubusercontent.com/57301554/122157535-9c3e1b00-ce30-11eb-9491-3991746357fc.png)
+
+## 3. The hotel name is retrieved and added to the DataFrame, and the rows that don’t have a hotel name are dropped.
+
+![image](https://user-images.githubusercontent.com/57301554/122157635-cf80aa00-ce30-11eb-86fb-29adcdfc9946.png)
+
+![image](https://user-images.githubusercontent.com/57301554/122157659-dd362f80-ce30-11eb-958a-39170d699d3f.png)
+
+## 4. The DataFrame is exported as a CSV file into the Vacation_Search folder and is saved as WeatherPy_vacation.csv.
+
+# 8a. Create the output File (CSV)
+# Create the output file (CSV).
+output_data_file = "Vacation_Search/WeatherPy_vacation.csv"
+
+# 8b. Export the City_Data into a csv
+hotel_df.to_csv(output_data_file, index_label="City_ID")
+
+## 5.A marker layer map with pop-up markers for the cities in the vacation DataFrame is created, and it is uploaded as a PNG. Each marker has the following information:
+  -Hotel name
+  -City
+  -Country
+  -Current weather description with the maximum temperature
+  
+  # 9. Using the template add city name, the country code, the weather description and maximum temperature for the city.
+info_box_template = """
+<dl>
+<dt>Hotel Name</dt><dd>{Hotel Name}</dd>
+<dt>City</dt><dd>{City}</dd>
+<dt>Country</dt><dd>{Country}</dd>
+<dt>Current Description</dt><dd>{Current Description}</dd>
+<dt>Max Temp</dt><dd>{Max Temp} °F</dd>
+</dl>
+"""
+
+# 10a. Get the data from each row and add it to the formatting template and store the data in a list.
+hotel_info = [info_box_template.format(**row) for index, row in hotel_df.iterrows()]
+
+# 10b. Get the latitude and longitude from each row and store in a new DataFrame.
+locations = hotel_df[["Lat", "Lng"]]
+
+# 11a. Add a marker layer for each city to the map. 
+max_temp = hotel_df["Max Temp"]
+fig = gmaps.figure(center=(30.0, 31.0), zoom_level=1.5)
+heat_layer = gmaps.heatmap_layer(locations, weights=max_temp,dissipating=False,
+             max_intensity=300, point_radius=4)
+marker_layer = gmaps.marker_layer(locations, info_box_content=hotel_info)
+fig.add_layer(heat_layer)
+fig.add_layer(marker_layer)
+
+# 11b. Display the figure
+fig
+
+![image](https://user-images.githubusercontent.com/57301554/122157870-4027c680-ce31-11eb-8e58-f7f6373011f6.png)
+
+## 6. The marker layer map is saved and uploaded to the Vacation_Search folder as WeatherPy_vacation_map.png.
+
+![image](https://user-images.githubusercontent.com/57301554/122157936-5cc3fe80-ce31-11eb-9a9e-fc119642f406.png)
+
+
+
 
 
 
