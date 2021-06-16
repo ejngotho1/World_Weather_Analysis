@@ -350,13 +350,71 @@ Use the Google Directions API to create a travel itinerary that shows the route 
   
 ### The analysis should contain the following:
 
-1. Four DataFrames are created, one for each city on the itinerary Explain the purpose of the new analys
+### 1. Four DataFrames are created, one for each city on the itinerary Explain the purpose of the new analys
 
 ![image](https://user-images.githubusercontent.com/57301554/122158315-16bb6a80-ce32-11eb-9e73-68ec0aa62294.png)
 
 ![image](https://user-images.githubusercontent.com/57301554/122158394-35216600-ce32-11eb-8c74-1e477db1804a.png)
 
-2. The latitude and longitude pairs for each of the four cities are retrieved. Using images from the summary DataFrame and multiple-line chart, describe the differences in ride-sharing data among the different city types:
+### 2. The latitude and longitude pairs for each of the four cities are retrieved. Using images from the summary DataFrame and multiple-line chart, describe the differences in ride-sharing data among the different city types:
+
+start = vacation_start[["Lat", "Lng"]]
+stop1 = vacation_stop1[["Lat", "Lng"]]
+stop2 = vacation_stop2[["Lat", "Lng"]]
+stop3 = vacation_stop3[["Lat", "Lng"]]
+end = vacation_end[["Lat", "Lng"]]
+
+![image](https://user-images.githubusercontent.com/57301554/122158830-e1634c80-ce32-11eb-958e-fdaf8f544091.png)
+
+### 3. A directions layer map between the cities and the travel map is created and uploaded as WeatherPy_travel_map.png. types:
+
+# 7. Create a direction layer map using the start and end latitude-longitude pairs,
+# and stop1, stop2, and stop3 as the waypoints. The travel_mode should be "DRIVING", "BICYCLING", or "WALKING".
+
+# USING DRIVING MODE!
+
+import gmaps
+import gmaps.datasets
+gmaps.configure(api_key=g_key)
+
+start = (20.7, -105.2)
+stop1 = (17.48, -91.43)
+stop2 = (27.98, -114.06)
+stop3 = (23.17, -97.95)
+end = (30.85, -116.07)
+
+fig = gmaps.figure()
+sart2end_via_stops = gmaps.directions_layer(
+        start, end, waypoints=[stop1, stop2, stop3],
+        travel_mode='DRIVING')
+fig.add_layer(sart2end_via_stops)
+fig
+
+![image](https://user-images.githubusercontent.com/57301554/122158933-1374ae80-ce33-11eb-9541-192a05d841c7.png)
+
+### 4 A DataFrame that contains the four cities on the itinerary is created. types:
+
+![image](https://user-images.githubusercontent.com/57301554/122158988-2be4c900-ce33-11eb-8935-e62bb28b13c4.png)
+
+### 5 A marker layer map with a pop-up marker for the cities on the itinerary is created, and it is uploaded as WeatherPy_travel_map_markers.png. Each marker has the following information:
+
+  -Hotel name
+  
+  -City
+  
+  -Country
+  
+  -Current weather description with the maximum temperature
+  
+  # 11a. Add a marker layer for each city to the map.
+city_mark = mexico_vacation_df["City"]
+fig = gmaps.figure(center=(30.0, 31.0), zoom_level=1.5)
+marker_layer = gmaps.marker_layer(locations, info_box_content=mark_info)
+
+fig.add_layer(marker_layer)
+fig
+
+![image](https://user-images.githubusercontent.com/57301554/122159118-6b131a00-ce33-11eb-850e-037e529b5266.png)
 
 
 
