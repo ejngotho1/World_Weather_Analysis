@@ -225,7 +225,7 @@ print("-----------------------------")
 print("Data Retrieval Complete      ")
 print("-----------------------------") 
 
-## 2. Add the weather data to a new DataFrame.
+### 2. Add the weather data to a new DataFrame.
 
 # New DF
 city_data_df = pd.DataFrame(city_data)
@@ -242,7 +242,7 @@ city_data_df
 
 ![image](https://user-images.githubusercontent.com/57301554/122157123-ed014400-ce2f-11eb-92e1-4b619dda3bdc.png)
 
-## 3. Export the DataFrame as WeatherPy_Database.csv into the Weather_Database folder
+### 3. Export the DataFrame as WeatherPy_Database.csv into the Weather_Database folder
 
 # Create the output file (CSV).
 output_data_file = "Weather_Database/WeatherPy_Database.csv"
@@ -272,17 +272,17 @@ Hotel name
 
 ![image](https://user-images.githubusercontent.com/57301554/122157428-73b62100-ce30-11eb-8b1a-91b18437250c.png)
 
-## 2. A new DataFrame is created based on the minimum and maximum temperature, and empty rows are dropped."
+### 2. A new DataFrame is created based on the minimum and maximum temperature, and empty rows are dropped."
 
 ![image](https://user-images.githubusercontent.com/57301554/122157535-9c3e1b00-ce30-11eb-9491-3991746357fc.png)
 
-## 3. The hotel name is retrieved and added to the DataFrame, and the rows that don’t have a hotel name are dropped.
+### 3. The hotel name is retrieved and added to the DataFrame, and the rows that don’t have a hotel name are dropped.
 
 ![image](https://user-images.githubusercontent.com/57301554/122157635-cf80aa00-ce30-11eb-86fb-29adcdfc9946.png)
 
 ![image](https://user-images.githubusercontent.com/57301554/122157659-dd362f80-ce30-11eb-958a-39170d699d3f.png)
 
-## 4. The DataFrame is exported as a CSV file into the Vacation_Search folder and is saved as WeatherPy_vacation.csv.
+### 4. The DataFrame is exported as a CSV file into the Vacation_Search folder and is saved as WeatherPy_vacation.csv.
 
 # 8a. Create the output File (CSV)
 # Create the output file (CSV).
@@ -291,7 +291,7 @@ output_data_file = "Vacation_Search/WeatherPy_vacation.csv"
 # 8b. Export the City_Data into a csv
 hotel_df.to_csv(output_data_file, index_label="City_ID")
 
-## 5.A marker layer map with pop-up markers for the cities in the vacation DataFrame is created, and it is uploaded as a PNG. Each marker has the following information:
+### 5.A marker layer map with pop-up markers for the cities in the vacation DataFrame is created, and it is uploaded as a PNG. Each marker has the following information:
   -Hotel name
   -City
   -Country
@@ -328,9 +328,37 @@ fig
 
 ![image](https://user-images.githubusercontent.com/57301554/122157870-4027c680-ce31-11eb-8e58-f7f6373011f6.png)
 
-## 6. The marker layer map is saved and uploaded to the Vacation_Search folder as WeatherPy_vacation_map.png.
+### 6. The marker layer map is saved and uploaded to the Vacation_Search folder as WeatherPy_vacation_map.png.
 
 ![image](https://user-images.githubusercontent.com/57301554/122157936-5cc3fe80-ce31-11eb-9a9e-fc119642f406.png)
+
+## Deliverable 3: Create a Travel Itinerary Map
+
+Use the Google Directions API to create a travel itinerary that shows the route between four cities chosen from the customer’s possible travel destinations. Then, create a marker layer map with a pop-up marker for each city on the itinerary.
+
+### Deliverable Requirements:
+1. Four DataFrames are created, one for each city on the itinerary.
+2. The latitude and longitude pairs for each of the four cities are retrieved.
+3. A directions layer map between the cities and the travel map is created and uploaded as WeatherPy_travel_map.png.
+4. A DataFrame that contains the four cities on the itinerary is created.
+5. A marker layer map with a pop-up marker for the cities on the itinerary is created, and it is uploaded as WeatherPy_travel_map_markers.png. Each marker has the following information:
+
+  -Hotel name
+  -City
+  -Country
+  -Current weather description with the maximum temperature
+  
+### The analysis should contain the following:
+
+1. Four DataFrames are created, one for each city on the itinerary Explain the purpose of the new analys
+
+![image](https://user-images.githubusercontent.com/57301554/122158315-16bb6a80-ce32-11eb-9e73-68ec0aa62294.png)
+
+![image](https://user-images.githubusercontent.com/57301554/122158394-35216600-ce32-11eb-8c74-1e477db1804a.png)
+
+2. The latitude and longitude pairs for each of the four cities are retrieved. Using images from the summary DataFrame and multiple-line chart, describe the differences in ride-sharing data among the different city types:
+
+
 
 
 
